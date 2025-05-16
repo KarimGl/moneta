@@ -1,6 +1,7 @@
 package com.moneta.account;
 
-import com.moneta.operation.MinAmountException;
+import com.moneta.operation.DepositOperation;
+import com.moneta.transaction.Transaction;
 
 import java.math.BigDecimal;
 
@@ -9,10 +10,8 @@ public class Account {
     private BigDecimal balance = BigDecimal.ZERO;
 
     public void deposit(BigDecimal amount) {
-        if (amount == null || amount.signum() <= 0) {
-            throw new MinAmountException("Deposit amount must be positive");
-        }
-        balance = balance.add(amount);
+        Transaction transaction = new DepositOperation(amount, balance).execute();
+        balance = transaction.balanceAfter();
     }
 
     public BigDecimal balance() {

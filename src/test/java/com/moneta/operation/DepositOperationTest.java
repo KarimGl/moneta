@@ -1,7 +1,6 @@
-package com.moneta.account;
+package com.moneta.operation;
 
-import com.moneta.operation.MinAmountException;
-import org.junit.jupiter.api.BeforeEach;
+import com.moneta.transaction.Transaction;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -13,45 +12,29 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AccountTest {
-
-    private Account account;
-
-    @BeforeEach
-    void setUp() {
-        account = new Account();
-    }
+class DepositOperationTest {
 
     @Test
-    void new_account_balance_should_be_zero() {
-        // When
-        BigDecimal balance = account.balance();
+    void should_return_a_valid_deposit_transaction() {
+        Operation operation = new DepositOperation(BigDecimal.TEN, BigDecimal.TWO);
 
-        // Then
-        assertEquals(BigDecimal.ZERO, account.balance());
-    }
+        Transaction depositTransaction = operation.execute();
 
-    @Test
-    void balance_should_increase_after_a_deposit_operation() {
-        // Given
-        BigDecimal oneHundred = BigDecimal.valueOf(100);
-
-        // When
-        account.deposit(oneHundred);
-
-        // Then
-        assertEquals(oneHundred, account.balance());
+        assertEquals("DEPOSIT", depositTransaction.operation());
+        assertEquals(BigDecimal.TEN, depositTransaction.amount());
+        assertEquals(BigDecimal.valueOf(12), depositTransaction.balanceAfter());
     }
 
     @ParameterizedTest(name = "{1} amount")
     @MethodSource("invalidAmounts")
-    @DisplayName("Should prohibit deposit of")
+    @DisplayName("Should not execute deposit of")
     void should_prohibit_deposit_of_invalid_amount(BigDecimal amount, String cause) {
+        Operation operation = new DepositOperation(amount, BigDecimal.ZERO);
 
         MinAmountException thrown = assertThrows(
                 MinAmountException.class,
                 // When
-                () -> account.deposit(amount)
+                operation::execute
         );
 
         // Then
