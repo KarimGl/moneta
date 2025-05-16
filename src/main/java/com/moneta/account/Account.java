@@ -1,7 +1,9 @@
 package com.moneta.account;
 
 import com.moneta.operation.*;
+import com.moneta.transaction.InMemoryTransactionHistory;
 import com.moneta.transaction.Transaction;
+import com.moneta.transaction.TransactionHistory;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -11,12 +13,12 @@ public class Account {
 
     private BigDecimal balance = BigDecimal.ZERO;
 
-    private final List<Transaction> transactions = new ArrayList<>();
+    private final TransactionHistory transactionsHistory = new InMemoryTransactionHistory();
 
     public void deposit(BigDecimal amount) {
         Transaction transaction = new DepositOperation(amount, balance).execute();
         balance = transaction.balanceAfter();
-        transactions.add(transaction);
+        transactionsHistory.record(transaction);
     }
 
     public BigDecimal balance() {
@@ -27,10 +29,10 @@ public class Account {
         Operation operation = new WithdrawOperation(amount, balance);
         Transaction transaction = operation.execute();
         balance = transaction.balanceAfter();
-        transactions.add(transaction);
+        transactionsHistory.record(transaction);
     }
 
     public List<Transaction> history() {
-        return transactions;
+        return transactionsHistory.history();
     }
 }
