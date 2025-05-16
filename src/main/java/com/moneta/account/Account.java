@@ -17,4 +17,7 @@ public class Account {
     public BigDecimal balance() {
         return balance;
     }
+
+    public void withdraw(BigDecimal oneHundred) {
+    }
 }
