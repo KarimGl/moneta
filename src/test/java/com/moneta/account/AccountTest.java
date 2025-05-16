@@ -14,6 +14,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static com.moneta.operation.OperationType.DEPOSIT;
+import static com.moneta.operation.OperationType.WITHDRAW;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AccountTest {
@@ -116,8 +118,8 @@ public class AccountTest {
 
         // Then
         assertEquals(2, history.size());
-        assertEquals("DEPOSIT", history.get(0).operation());
-        assertEquals("WITHDRAW", history.get(1).operation());
+        assertEquals(DEPOSIT, history.getFirst().operation());
+        assertEquals(WITHDRAW, history.getLast().operation());
     }
 
 

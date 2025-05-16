@@ -4,6 +4,7 @@ import com.moneta.transaction.Transaction;
 
 import java.math.BigDecimal;
 
+import static com.moneta.operation.OperationType.WITHDRAW;
 import static java.time.LocalDateTime.now;
 
 public class WithdrawOperation implements Operation {
@@ -22,7 +23,7 @@ public class WithdrawOperation implements Operation {
         checkMinAmount();
         checkBalance();
         BigDecimal balanceAfter = balance.subtract(amount);
-        return new Transaction(now(), type(), amount, balanceAfter);
+        return new Transaction(now(), WITHDRAW, amount, balanceAfter);
     }
 
     private void checkMinAmount() {
@@ -35,10 +36,5 @@ public class WithdrawOperation implements Operation {
         if (balance.compareTo(amount) < 0) {
             throw new InsufficientBalanceException("Insufficient balance");
         }
-    }
-
-    @Override
-    public String type() {
-        return "WITHDRAW";
     }
 }

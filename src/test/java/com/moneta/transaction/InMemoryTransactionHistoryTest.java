@@ -6,7 +6,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static com.moneta.operation.OperationType.DEPOSIT;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class InMemoryTransactionHistoryTest {
 
@@ -15,7 +16,7 @@ class InMemoryTransactionHistoryTest {
         TransactionHistory transactionHistory = new InMemoryTransactionHistory();
         Transaction transaction = new Transaction(
                 LocalDateTime.now(),
-                "DEPOSIT",
+                DEPOSIT,
                 BigDecimal.TEN,
                 BigDecimal.TEN
         );

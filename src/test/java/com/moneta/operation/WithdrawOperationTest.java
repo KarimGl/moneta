@@ -10,6 +10,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.math.BigDecimal;
 import java.util.stream.Stream;
 
+import static com.moneta.operation.OperationType.WITHDRAW;
 import static org.junit.jupiter.api.Assertions.*;
 
 class WithdrawOperationTest {
@@ -20,7 +21,7 @@ class WithdrawOperationTest {
 
         Transaction depositTransaction = operation.execute();
 
-        assertEquals("WITHDRAW", depositTransaction.operation());
+        assertEquals(WITHDRAW, depositTransaction.operation());
         assertEquals(BigDecimal.ONE, depositTransaction.amount());
         assertEquals(BigDecimal.valueOf(9), depositTransaction.balanceAfter());
     }

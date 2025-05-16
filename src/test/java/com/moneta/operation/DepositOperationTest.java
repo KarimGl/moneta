@@ -10,6 +10,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.math.BigDecimal;
 import java.util.stream.Stream;
 
+import static com.moneta.operation.OperationType.DEPOSIT;
 import static org.junit.jupiter.api.Assertions.*;
 
 class DepositOperationTest {
@@ -20,7 +21,7 @@ class DepositOperationTest {
 
         Transaction depositTransaction = operation.execute();
 
-        assertEquals("DEPOSIT", depositTransaction.operation());
+        assertEquals(DEPOSIT, depositTransaction.operation());
         assertEquals(BigDecimal.TEN, depositTransaction.amount());
         assertEquals(BigDecimal.valueOf(12), depositTransaction.balanceAfter());
     }

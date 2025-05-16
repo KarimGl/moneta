@@ -6,5 +6,4 @@ public interface Operation {
 
     Transaction execute();
 
-    String type();
 }
