@@ -2,6 +2,7 @@ package com.moneta.account;
 
 import com.moneta.operation.InsufficientBalanceException;
 import com.moneta.operation.MinAmountException;
+import com.moneta.transaction.Transaction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -101,6 +103,24 @@ public class AccountTest {
         // Then
         assertTrue(thrown.getMessage().contains("Withdraw amount must be positive"));
     }
+
+
+    @Test
+    void any_operation_must_be_historicized() {
+        // Given
+        account.deposit(BigDecimal.TEN);
+        account.withdraw(BigDecimal.TEN);
+
+        // When
+        List<Transaction> history = account.history();
+
+        // Then
+        assertEquals(2, history.size());
+        assertEquals("DEPOSIT", history.get(0).operation());
+        assertEquals("WITHDRAW", history.get(1).operation());
+    }
+
+
 
     private static Stream<Arguments> invalidAmounts() {
         return Stream.of(

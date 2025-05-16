@@ -4,6 +4,7 @@ import com.moneta.operation.*;
 import com.moneta.transaction.Transaction;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class Account {
 
@@ -22,5 +23,9 @@ public class Account {
         Operation operation = new WithdrawOperation(amount, balance);
         Transaction transaction = operation.execute();
         balance = transaction.balanceAfter();
+    }
+
+    public List<Transaction> history() {
+        return null;
     }
 }
