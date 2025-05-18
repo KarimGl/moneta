@@ -1,7 +1,7 @@
 package com.moneta.account;
 
-import com.moneta.operation.InsufficientBalanceException;
-import com.moneta.operation.MinAmountException;
+import com.moneta.operation.exception.InsufficientBalanceException;
+import com.moneta.operation.exception.MinAmountException;
 import com.moneta.transaction.Transaction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

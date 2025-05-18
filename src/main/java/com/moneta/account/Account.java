@@ -1,12 +1,13 @@
 package com.moneta.account;
 
-import com.moneta.operation.*;
+import com.moneta.operation.DepositOperation;
+import com.moneta.operation.Operation;
+import com.moneta.operation.WithdrawOperation;
 import com.moneta.transaction.InMemoryTransactionHistory;
 import com.moneta.transaction.Transaction;
 import com.moneta.transaction.TransactionHistory;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Account {

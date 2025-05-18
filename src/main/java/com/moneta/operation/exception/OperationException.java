@@ -1,4 +1,4 @@
-package com.moneta.operation;
+package com.moneta.operation.exception;
 
 public class OperationException extends RuntimeException {
 

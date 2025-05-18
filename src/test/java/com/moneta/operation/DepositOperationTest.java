@@ -1,5 +1,6 @@
 package com.moneta.operation;
 
+import com.moneta.operation.exception.MinAmountException;
 import com.moneta.transaction.Transaction;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
