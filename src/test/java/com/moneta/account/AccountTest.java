@@ -2,7 +2,9 @@ package com.moneta.account;
 
 import com.moneta.operation.exception.InsufficientBalanceException;
 import com.moneta.operation.exception.MinAmountException;
+import com.moneta.transaction.InMemoryTransactionHistory;
 import com.moneta.transaction.Transaction;
+import com.moneta.transaction.TransactionHistory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,7 +26,8 @@ public class AccountTest {
 
     @BeforeEach
     void setUp() {
-        account = new Account();
+        TransactionHistory transactionHistory = new InMemoryTransactionHistory();
+        account = new Account(transactionHistory);
     }
 
     @Test

@@ -3,7 +3,6 @@ package com.moneta.account;
 import com.moneta.operation.DepositOperation;
 import com.moneta.operation.Operation;
 import com.moneta.operation.WithdrawOperation;
-import com.moneta.transaction.InMemoryTransactionHistory;
 import com.moneta.transaction.Transaction;
 import com.moneta.transaction.TransactionHistory;
 
@@ -14,7 +13,11 @@ public class Account {
 
     private BigDecimal balance = BigDecimal.ZERO;
 
-    private final TransactionHistory transactionsHistory = new InMemoryTransactionHistory();
+    private final TransactionHistory transactionsHistory;
+
+    public Account(TransactionHistory transactionsHistory) {
+        this.transactionsHistory = transactionsHistory;
+    }
 
     public void deposit(BigDecimal amount) {
         Transaction transaction = new DepositOperation(amount, balance).execute();
